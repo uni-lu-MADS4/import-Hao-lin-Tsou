@@ -1,7 +1,7 @@
 ---
 title: "Import practical"
-author: Your name here
-date: today
+author: Haolin ZOU
+date: 30 SEP 2024
 format: html
 ---
 
@@ -29,7 +29,9 @@ We will take advantage of the RStudio projects and store data files in a sub-fol
 
 ```{r}
 # Your answer in code
-
+download.file("https://biostat2.uni.lu/practicals/data/blood_fat.csv","data/blood_fat.csv")
+renv::restore()
+library(readr)
 ```
 
 
@@ -70,7 +72,7 @@ For example, you folder structure could be (depending on the picked names) as he
 ├── import.qmd
 ├── renv/
 ├── renv.lock
-└── mads4-import-practical.Rproj
+└── import-practical.Rproj
 
 
 ```
@@ -78,6 +80,7 @@ For example, you folder structure could be (depending on the picked names) as he
 
 ```{r}
 # Your answer in code
+readr::read_delim("data/blood_fat.csv")
 
 ```
 
@@ -92,7 +95,7 @@ If we are happy with the guessed delimiter and the column names / types, we coul
 
 ```{r}
 # Your answer in code
-
+readr::read_delim("data/blood_fat.csv",show_col_types = FALSE)
 
 ```
 
@@ -107,7 +110,7 @@ If we are happy with the guessed delimiter and the column names / types, we coul
 
 
 > Your answer as text
-
+I have got 25 row
 
 
 - The columns of a tibble report their type:
@@ -115,7 +118,7 @@ If we are happy with the guessed delimiter and the column names / types, we coul
 
 
 > Your answer as text
-
+the type of age column is douuble
 
 
 Actually, both `age` and `id` are **integers**, and should be read as such.
@@ -131,9 +134,12 @@ In the `col_types = cols(....)` you can use the columns bare names and either th
 
 ```{r}
 # Your answer in code
+blood_fat <- read_delim("data/blood_fat.csv",
+                        col_types = cols(age = col_integer(),
+                                        id = col_integer(),
+                                        ))
 
-
-
+blood_fat
 ```
 
 
@@ -141,10 +147,15 @@ In the `col_types = cols(....)` you can use the columns bare names and either th
 
 ```{r}
 # Your answer in code
+blood_fat <- read_delim("data/blood_fat.csv",
+                        col_types = cols(age = col_integer(),
+                                        id = col_integer(),
+                                        weight = col_skip()
+                                        ))
 
 
 
-
+blood_fat
 ```
 
 
